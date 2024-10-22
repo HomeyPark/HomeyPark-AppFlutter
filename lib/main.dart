@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:homey_park_mobile_app/vistaReservation.dart';
 import 'util.dart';
 import 'theme.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: brightness == Brightness.light ? theme.light() : theme.dark(),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: vistaReservation(),
     );
   }
 }
