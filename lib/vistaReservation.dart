@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:homey_park_mobile_app/vistaHistory.dart';
 
 class vistaReservation extends StatelessWidget {
   const vistaReservation({super.key});
@@ -6,6 +7,15 @@ class vistaReservation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Reserva de estacionamiento', style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: Color(0xFF3C4E67),
+          )
+        ),
+        centerTitle: true,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
@@ -111,7 +121,10 @@ class vistaReservation extends StatelessWidget {
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () {
-                  // Lógica del botón aquí
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => vistaHistory()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF6CD391),
