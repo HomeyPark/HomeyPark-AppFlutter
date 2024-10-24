@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:homey_park_mobile_app/utils/text_field_validator.dart';
 import 'package:homey_park_mobile_app/views/login.dart';
 
 final _registerFormKey = GlobalKey<FormState>();
@@ -19,40 +19,8 @@ class _RegisterState extends State<Register> {
   final passwordFieldController = TextEditingController();
   final repeatPasswordFieldController = TextEditingController();
 
-  String? validateEmptyFields(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Este campo es requerido';
-    }
-    return null;
-  }
-
-  String? validateEmail(String? email) {
-    var isEmpty = validateEmptyFields(email);
-
-    if (isEmpty != null) return isEmpty;
-
-    RegExp emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    final isEmailValid = emailRegExp.hasMatch(email ?? '');
-
-    if (!isEmailValid) return 'Por favor, introduce un email válido';
-
-    return null;
-  }
-
-  String? validatePassword(String? password) {
-    var isEmpty = validateEmptyFields(password);
-
-    if (isEmpty != null) return isEmpty;
-
-    if (password!.length < 6) {
-      return 'La contraseña debe tener al menos 6 caracteres';
-    }
-
-    return null;
-  }
-
   String? validateRepeatPassword(String? repeatPassword) {
-    var isEmpty = validateEmptyFields(repeatPassword);
+    var isEmpty = TextFieldValidator.validateEmptyField(repeatPassword);
 
     if (isEmpty != null) return isEmpty;
 
@@ -110,7 +78,7 @@ class _RegisterState extends State<Register> {
                           labelText: 'Email',
                           border: OutlineInputBorder(),
                         ),
-                        validator: validateEmail,
+                        validator: TextFieldValidator.validateEmailField,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                       ),
                     ),
@@ -123,7 +91,7 @@ class _RegisterState extends State<Register> {
                         autocorrect: false,
                         obscuringCharacter: "*",
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        validator: validatePassword,
+                        validator: TextFieldValidator.validatePasswordField,
                         decoration: InputDecoration(
                           labelText: 'Contraseña',
                           border: const OutlineInputBorder(),
