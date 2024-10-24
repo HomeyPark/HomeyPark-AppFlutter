@@ -7,7 +7,7 @@ class TextFieldValidator {
   }
 
   static String? validateEmailField(String? value) {
-    var isEmpty = validateEmailField(value);
+    var isEmpty = validateEmptyField(value);
 
     if (isEmpty != null) return isEmpty;
 

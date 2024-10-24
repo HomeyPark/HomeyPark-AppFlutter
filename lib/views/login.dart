@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:homey_park_mobile_app/layout/app_layout.dart';
 import 'package:homey_park_mobile_app/utils/text_field_validator.dart';
 import 'package:homey_park_mobile_app/views/register.dart';
 
@@ -22,6 +23,11 @@ class _LoginState extends State<Login> {
         context, MaterialPageRoute(builder: (context) => const Register()));
   }
 
+  void navigateToApp() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const AppLayout()));
+  }
+
   void handleSubmit() {
     if (_loginFormKey.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -30,7 +36,7 @@ class _LoginState extends State<Login> {
       ));
 
       Future.delayed(const Duration(seconds: 3), () {
-        navigateToRegister();
+        navigateToApp();
       });
     }
   }
@@ -43,88 +49,91 @@ class _LoginState extends State<Login> {
         body: Padding(
             padding: const EdgeInsets.all(24),
             child: Center(
-              child: Form(
-                key: _loginFormKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      "Inicio de sesión",
-                      style: TextStyle(
-                        fontSize: theme.textTheme.headlineMedium!.fontSize,
-                        fontWeight: FontWeight.w600,
-                        color: theme.colorScheme.onSurface,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 60),
-                      child: TextFormField(
-                        controller: emailFieldController,
-                        decoration: const InputDecoration(
-                          labelText: 'Email',
-                          border: OutlineInputBorder(),
-                        ),
-                        validator: TextFieldValidator.validateEmailField,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 24),
-                      child: TextFormField(
-                        controller: passwordFieldController,
-                        obscureText: !passwordVisible,
-                        enableSuggestions: false,
-                        autocorrect: false,
-                        obscuringCharacter: "*",
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        validator: TextFieldValidator.validatePasswordField,
-                        decoration: InputDecoration(
-                          labelText: 'Contraseña',
-                          border: const OutlineInputBorder(),
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  passwordVisible = !passwordVisible;
-                                });
-                              },
-                              icon: Icon(passwordVisible
-                                  ? Icons.visibility_off
-                                  : Icons.visibility)),
+              child: SingleChildScrollView(
+                child: Form(
+                  key: _loginFormKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        "Inicio de sesión",
+                        style: TextStyle(
+                          fontSize: theme.textTheme.headlineMedium!.fontSize,
+                          fontWeight: FontWeight.w600,
+                          color: theme.colorScheme.onSurface,
                         ),
                       ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 24),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "¿Olvido su contraseña?",
-                            style: TextStyle(
-                                color: theme.colorScheme.onSurface,
-                                fontSize: theme.textTheme.labelMedium!.fontSize,
-                                fontWeight: FontWeight.w600),
+                      Container(
+                        margin: const EdgeInsets.only(top: 60),
+                        child: TextFormField(
+                          controller: emailFieldController,
+                          decoration: const InputDecoration(
+                            labelText: 'Email',
+                            border: OutlineInputBorder(),
                           ),
-                        ],
+                          validator: TextFieldValidator.validateEmailField,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                        ),
                       ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 24),
-                      width: double.infinity,
-                      child: FilledButton(
-                        onPressed: handleSubmit,
-                        child: const Text('Iniciar sesión'),
+                      Container(
+                        margin: const EdgeInsets.only(top: 24),
+                        child: TextFormField(
+                          controller: passwordFieldController,
+                          obscureText: !passwordVisible,
+                          enableSuggestions: false,
+                          autocorrect: false,
+                          obscuringCharacter: "*",
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: TextFieldValidator.validatePasswordField,
+                          decoration: InputDecoration(
+                            labelText: 'Contraseña',
+                            border: const OutlineInputBorder(),
+                            suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    passwordVisible = !passwordVisible;
+                                  });
+                                },
+                                icon: Icon(passwordVisible
+                                    ? Icons.visibility_off
+                                    : Icons.visibility)),
+                          ),
+                        ),
                       ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 8),
-                      width: double.infinity,
-                      child: OutlinedButton(
-                        onPressed: navigateToRegister,
-                        child: const Text('Crear cuenta'),
+                      Container(
+                        margin: const EdgeInsets.only(top: 24),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "¿Olvido su contraseña?",
+                              style: TextStyle(
+                                  color: theme.colorScheme.onSurface,
+                                  fontSize:
+                                      theme.textTheme.labelMedium!.fontSize,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                      Container(
+                        margin: const EdgeInsets.only(top: 24),
+                        width: double.infinity,
+                        child: FilledButton(
+                          onPressed: handleSubmit,
+                          child: const Text('Iniciar sesión'),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 8),
+                        width: double.infinity,
+                        child: OutlinedButton(
+                          onPressed: navigateToRegister,
+                          child: const Text('Crear cuenta'),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             )));
