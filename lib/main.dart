@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:homey_park_mobile_app/vistaParking.dart';
+import 'package:homey_park_mobile_app/views/register.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'util.dart';
 import 'theme.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 
@@ -19,33 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: brightness == Brightness.light ? theme.light() : theme.dark(),
-      home: vistaParking(),
+      home: const Register(),
     );
   }
 }
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text(widget.title, style: TextStyle(color: Theme.of(context).colorScheme.onPrimary)),
-      ),
-      body: const Center(
-      ),
-
-    );
-  }
-}
-
