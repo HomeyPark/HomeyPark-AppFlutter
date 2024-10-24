@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:homey_park_mobile_app/vistaParking.dart';
+import 'editarPerfil.dart';
 import 'util.dart';
 import 'theme.dart';
 
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: brightness == Brightness.light ? theme.light() : theme.dark(),
-      home: vistaParking(),
+      home: editarPerfil(),
     );
   }
 }
@@ -34,7 +34,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,10 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(widget.title, style: TextStyle(color: Theme.of(context).colorScheme.onPrimary)),
       ),
-      body: const Center(
-      ),
-
+      body: const Center(),
     );
   }
 }
-
