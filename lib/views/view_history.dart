@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-class vistaHistory extends StatelessWidget {
-  const vistaHistory({super.key});
+class ViewHistory extends StatelessWidget {
+  const ViewHistory({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Historial de reservas', style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          color: Color(0xFF3C4E67),
-          )
-        ),
+        title: const Text('Historial de reservas',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF3C4E67),
+            )),
         centerTitle: true,
       ),
       body: Padding(
@@ -111,7 +111,8 @@ class vistaHistory extends StatelessWidget {
                   ),
                   child: Text(
                     buttonText,
-                    style: const TextStyle(fontSize: 16, color: Color(0xFFFFFFFF)),
+                    style:
+                        const TextStyle(fontSize: 16, color: Color(0xFFFFFFFF)),
                   ),
                 ),
               ],
@@ -160,4 +161,3 @@ class vistaHistory extends StatelessWidget {
     );
   }
 }
-

@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:homey_park_mobile_app/views/view_history.dart';
+import 'package:homey_park_mobile_app/views/view_reservation.dart';
 import 'package:http/http.dart' as http;
 
 class SearchParking extends StatefulWidget {
@@ -54,6 +56,20 @@ class _SearchParkingState extends State<SearchParking> {
     }
   }
 
+  void navigateToHistory() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const ViewHistory()),
+    );
+  }
+
+  void navigateToParkingDetail() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const ViewReservation()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -69,7 +85,8 @@ class _SearchParkingState extends State<SearchParking> {
                 position: _center,
                 infoWindow: const InfoWindow(
                     title: "UPC",
-                    snippet: "Universidad Peruana de Ciencias Aplicadas"))
+                    snippet: "Universidad Peruana de Ciencias Aplicadas"),
+                onTap: navigateToParkingDetail),
           },
         ),
         // Cuadro de búsqueda y botones superpuestos
@@ -117,7 +134,7 @@ class _SearchParkingState extends State<SearchParking> {
                   const SizedBox(width: 10),
                   Expanded(
                     child: FilledButton(
-                      onPressed: () {},
+                      onPressed: navigateToHistory,
                       child: const Text("Historial"),
                     ),
                   )
