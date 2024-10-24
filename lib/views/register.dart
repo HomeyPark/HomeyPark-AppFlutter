@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:homey_park_mobile_app/views/login.dart';
 
 final _registerFormKey = GlobalKey<FormState>();
 
@@ -60,6 +61,24 @@ class _RegisterState extends State<Register> {
     }
 
     return null;
+  }
+
+  void handleSubmit() {
+    if (_registerFormKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Procesando datos'),
+        duration: Duration(seconds: 3),
+      ));
+
+      Future.delayed(const Duration(seconds: 3), () {
+        navigateToLogin();
+      });
+    }
+  }
+
+  void navigateToLogin() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const Login()));
   }
 
   @override
@@ -159,9 +178,7 @@ class _RegisterState extends State<Register> {
                                 fontWeight: FontWeight.w600),
                           ),
                           TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/login');
-                            },
+                            onPressed: navigateToLogin,
                             style: TextButton.styleFrom(
                               padding: const EdgeInsets.only(left: 4),
                             ),
@@ -181,21 +198,7 @@ class _RegisterState extends State<Register> {
                       margin: const EdgeInsets.only(top: 24),
                       width: double.infinity,
                       child: FilledButton(
-                        onPressed: () {
-                          if (_registerFormKey.currentState!.validate()) {
-                            Future.delayed(const Duration(seconds: 3), () {
-                              emailFieldController.clear();
-                              passwordFieldController.clear();
-                              repeatPasswordFieldController.clear();
-                            });
-
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text('Procesando datos'),
-                              duration: Duration(seconds: 3),
-                            ));
-                          }
-                        },
+                        onPressed: handleSubmit,
                         child: const Text('Registrarse'),
                       ),
                     ),
