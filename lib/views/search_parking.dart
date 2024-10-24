@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart' as http;
 
 class SearchParking extends StatefulWidget {
   const SearchParking({super.key});
@@ -11,11 +14,44 @@ class SearchParking extends StatefulWidget {
 
 class _SearchParkingState extends State<SearchParking> {
   late GoogleMapController mapController;
+  final searchQueryFieldController = TextEditingController();
+  final String? apiKey = dotenv.env['GOOGLE_PLACES_API_KEY'];
 
   final LatLng _center = const LatLng(-12.1035234, -76.9628504);
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
+  }
+
+  void _onSearch() async {
+    var client = http.Client();
+
+    try {
+      var response = await client.post(
+          Uri.parse("https://places.googleapis.com/v1/places:searchText"),
+          headers: {
+            "Content-Type": "application/json",
+            "X-Goog-Api-Key": apiKey ?? '',
+            "X-Goog-FieldMask": "*",
+          },
+          body: jsonEncode({"textQuery": searchQueryFieldController.text}));
+
+      if (response.statusCode != 200) {
+        throw Exception("Error al realizar la búsqueda");
+      }
+
+      var data = jsonDecode(response.body);
+
+      var location = data['places'][0]['location'];
+      var latitude = location['latitude'];
+      var longitude = location['longitude'];
+      print('Response body: ${location}');
+
+      mapController
+          .animateCamera(CameraUpdate.newLatLng(LatLng(latitude, longitude)));
+    } finally {
+      client.close();
+    }
   }
 
   @override
@@ -58,13 +94,15 @@ class _SearchParkingState extends State<SearchParking> {
                   ],
                 ),
                 margin: const EdgeInsets.only(bottom: 8),
-                child: const TextField(
+                child: TextField(
+                  controller: searchQueryFieldController,
                   decoration: InputDecoration(
-                    hintText: "Ingresa una ubicación",
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.all(15.0),
-                    prefixIcon: Icon(Icons.search),
-                  ),
+                      hintText: "Ingresa una ubicación",
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.all(15.0),
+                      suffixIcon: IconButton(
+                          onPressed: _onSearch,
+                          icon: const Icon(Icons.search))),
                 ),
               ),
 
