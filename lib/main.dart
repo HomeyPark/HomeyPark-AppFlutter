@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:homey_park_mobile_app/vistaParking.dart';
 import 'package:homey_park_mobile_app/views/register.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'util.dart';

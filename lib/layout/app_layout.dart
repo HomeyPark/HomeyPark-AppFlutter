@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:homey_park_mobile_app/views/search_parking.dart';
+import 'package:homey_park_mobile_app/views/view_parking.dart';
 
 class AppLayout extends StatefulWidget {
   const AppLayout({super.key});
@@ -30,7 +31,7 @@ class _AppLayoutState extends State<AppLayout> {
       ),
       body: [
         const SearchParking(),
-        const Placeholder(),
+        const ViewParking(),
         const Placeholder(),
       ][currentPageIndex],
     );

@@ -1,7 +1,10 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class vistaParking extends StatelessWidget {
-  const vistaParking({super.key});
+class ViewParking extends StatelessWidget {
+  const ViewParking({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +33,7 @@ class vistaParking extends StatelessWidget {
               const SizedBox(height: 16),
               Container(
                 height: 200,
-                color: Colors.grey[300],
-                child: const Center(
-                  child: Text('Map'),
-                ),
+                child: const ViewParkingMap(),
               ),
               const SizedBox(height: 16),
               Row(
@@ -106,8 +106,7 @@ class vistaParking extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               ElevatedButton(
-                onPressed: () {
-                },
+                onPressed: () {},
                 child: const Text('Registrar Cochera'),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
@@ -118,6 +117,45 @@ class vistaParking extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ViewParkingMap extends StatefulWidget {
+  const ViewParkingMap({super.key});
+
+  @override
+  State<ViewParkingMap> createState() => _ViewParkingMapState();
+}
+
+class _ViewParkingMapState extends State<ViewParkingMap> {
+  late GoogleMapController mapController;
+
+  final LatLng _center = const LatLng(-12.1035234, -76.9628504);
+
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GoogleMap(
+      onMapCreated: _onMapCreated,
+      initialCameraPosition: CameraPosition(target: _center, zoom: 16.0),
+      zoomControlsEnabled: false,
+      gestureRecognizers: {
+        Factory<OneSequenceGestureRecognizer>(
+          () => EagerGestureRecognizer(),
+        ),
+      },
+      markers: {
+        Marker(
+            markerId: const MarkerId("1"),
+            position: _center,
+            infoWindow: const InfoWindow(
+                title: "UPC",
+                snippet: "Universidad Peruana de Ciencias Aplicadas"))
+      },
     );
   }
 }
