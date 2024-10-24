@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class Register extends StatelessWidget {
+class Register extends StatefulWidget {
   const Register({super.key});
+
+  @override
+  State<Register> createState() => _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
+  bool passwordVisible = false;
+  bool repeatPasswordVisible = false;
+
+  final emailFieldController = TextEditingController();
+  final passwordFieldController = TextEditingController();
+  final repeatPasswordFieldController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,28 +37,55 @@ class Register extends StatelessWidget {
                   ),
                   Container(
                     margin: const EdgeInsets.only(top: 60),
-                    child: const TextField(
-                      obscureText: true,
-                      decoration: InputDecoration(
+                    child: TextField(
+                      controller: emailFieldController,
+                      decoration: const InputDecoration(
                           labelText: 'Email', border: OutlineInputBorder()),
                     ),
                   ),
                   Container(
                     margin: const EdgeInsets.only(top: 24),
-                    child: const TextField(
-                      obscureText: true,
+                    child: TextField(
+                      controller: passwordFieldController,
+                      obscureText: !passwordVisible,
+                      enableSuggestions: false,
+                      autocorrect: false,
+                      obscuringCharacter: "*",
                       decoration: InputDecoration(
-                          labelText: 'Contraseña',
-                          border: OutlineInputBorder()),
+                        labelText: 'Contraseña',
+                        border: const OutlineInputBorder(),
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                passwordVisible = !passwordVisible;
+                              });
+                            },
+                            icon: Icon(passwordVisible
+                                ? Icons.visibility_off
+                                : Icons.visibility)),
+                      ),
                     ),
                   ),
                   Container(
                     margin: const EdgeInsets.only(top: 24),
-                    child: const TextField(
-                      obscureText: true,
+                    child: TextField(
+                      controller: repeatPasswordFieldController,
+                      obscureText: !repeatPasswordVisible,
+                      enableSuggestions: false,
+                      autocorrect: false,
+                      obscuringCharacter: "*",
                       decoration: InputDecoration(
                         labelText: 'Repetir contraseña',
-                        border: OutlineInputBorder(),
+                        border: const OutlineInputBorder(),
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                repeatPasswordVisible = !repeatPasswordVisible;
+                              });
+                            },
+                            icon: Icon(repeatPasswordVisible
+                                ? Icons.visibility_off
+                                : Icons.visibility)),
                       ),
                     ),
                   ),
@@ -85,7 +124,14 @@ class Register extends StatelessWidget {
                     width: double.infinity,
                     child: FilledButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/home');
+                        print({
+                          "email": emailFieldController.text,
+                          "password": passwordFieldController.text,
+                          "repeatPassword": repeatPasswordFieldController.text
+                        });
+                        emailFieldController.clear();
+                        passwordFieldController.clear();
+                        repeatPasswordFieldController.clear();
                       },
                       child: const Text('Registrarse'),
                     ),
