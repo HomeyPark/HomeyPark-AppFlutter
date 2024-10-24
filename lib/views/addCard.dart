@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class addCard extends StatelessWidget {
+  const addCard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

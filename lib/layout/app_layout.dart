@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:homey_park_mobile_app/views/editProfile.dart';
 import 'package:homey_park_mobile_app/views/search_parking.dart';
 import 'package:homey_park_mobile_app/views/view_parking.dart';
 
@@ -32,6 +33,7 @@ class _AppLayoutState extends State<AppLayout> {
       body: [
         const SearchParking(),
         const ViewParking(),
+        const editProfile(),
         const Placeholder(),
       ][currentPageIndex],
     );

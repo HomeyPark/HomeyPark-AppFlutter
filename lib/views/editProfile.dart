@@ -1,19 +1,29 @@
 import 'package:flutter/material.dart';
-import 'addCard.dart';
+import 'package:homey_park_mobile_app/views/addCard.dart';
 
-class editarPerfil extends StatelessWidget {
+
+class editProfile extends StatelessWidget {
+  const editProfile({super.key});
+
+  void navigateToAddCardDetail(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const addCard()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Fondo blanco
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
           'Editar Perfil',
-          style: TextStyle(color: Colors.black), // Color negro
+          style: TextStyle(color: Colors.black),
         ),
-        centerTitle: true, // Centrar título
-        backgroundColor: Colors.white, // Fondo de AppBar blanco
-        elevation: 0, // Quitar sombra del AppBar
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -32,7 +42,7 @@ class editarPerfil extends StatelessWidget {
               ),
               child: const Text(
                 'Cambiar imagen',
-                style: TextStyle(color: Colors.white), // Texto blanco
+                style: TextStyle(color: Colors.white),
               ),
             ),
             const SizedBox(height: 20),
@@ -108,11 +118,11 @@ class editarPerfil extends StatelessWidget {
               ),
               child: const Text(
                 'Añadir tarjeta',
-                style: TextStyle(color: Colors.white), // Texto blanco
+                style: TextStyle(color: Colors.white),
               ),
             ),
 
-            const SizedBox(height: 20), // Ajuste de espacio entre los botones
+            const SizedBox(height: 20),
 
             ElevatedButton(
               onPressed: () {},
@@ -122,7 +132,7 @@ class editarPerfil extends StatelessWidget {
               ),
               child: const Text(
                 'Guardar cambios',
-                style: TextStyle(color: Colors.white), // Texto blanco
+                style: TextStyle(color: Colors.white),
               ),
             ),
           ],
